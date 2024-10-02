@@ -1,1 +1,1 @@
-# intelligent--ystems-
+# intelligent-sytems
