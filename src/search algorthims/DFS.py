@@ -5,6 +5,10 @@ from utilities.State import State  # Import the State class if needed
 from utilities.Action import Action  # Import the Action class if needed
 
 class DFS(Search):
+    def __init__(self):
+        self.search = Search()
+    
+    
     def search(self):
         frontier = [Node(self.problem.initial_state)]  # Use a stack for DFS
         self.checked = set()

@@ -8,11 +8,13 @@ class Node:
 
     def expand(self, problem):
         """Returns child nodes from applying the problem's actions to this node."""
-        return [Node(next_state,
-                     parent=self,
-                     action=action,
-                     path_cost=self.path_cost + problem.step_cost(self.state, action, next_state))
-                for action, next_state in problem.successor(self.state)]
+        return [
+            Node(next_state,
+                 parent=self,
+                 action=action,
+                 path_cost=self.path_cost + problem.step_cost(self.state, action, next_state))
+            for action, next_state in problem.get_successors(self.state)  # Corrected to get_successors
+        ]
 
     def path(self):
         """Returns the list of nodes from the root to this node."""
