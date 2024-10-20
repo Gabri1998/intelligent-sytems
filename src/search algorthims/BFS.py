@@ -69,6 +69,6 @@ if __name__ == "__main__":
 
     if solution:
         bfs.write_solution_to_file(solution,
-                                   r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\output\plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
+                                   r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\output\small\bfs\plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
     else:
         print("No solution found.")
