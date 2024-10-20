@@ -7,6 +7,10 @@ from utilities.Action import Action  # Import the Action class if needed
 
 
 class UCS(Search):
+    def __init__(self):
+        self.search = Search()
+    
+    
     def search(self):
         frontier = []
         
