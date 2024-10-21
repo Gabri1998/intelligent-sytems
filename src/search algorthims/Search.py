@@ -1,31 +1,9 @@
-import os
 import json
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Tuple  
+from typing import Dict, List, Tuple
 from utilities.Problem import Problem
 from utilities.State import State
-
-class RouteData:
-    """Class to handle route data from JSON."""
-
-    def __init__(self, json_string: str):
-        self.data = json.loads(json_string)
-
-    def get_address(self) -> str:
-        return self.data.get("address", "No Address")
-
-    def get_distance(self) -> int:
-        return self.data.get("distance", 0)
-
-    def get_initial_final(self) -> Dict[str, int]:
-        return {"initial": self.data.get("initial", 0), "final": self.data.get("final", 0)}
-
-    def get_intersections(self) -> List[Dict[str, Any]]:
-        return self.data.get("intersections", [])
-
-    def get_segments(self) -> List[Dict[str, Any]]:
-        return self.data.get("segments", [])
-
+from utilities.RouteData import RouteData
 
 class Search(ABC):
     def __init__(self, json_file_path: str):
@@ -58,14 +36,13 @@ class Search(ABC):
             # Add bidirectional segments (or modify if directionality matters)
             if origin not in graph:
                 graph[origin] = []
-            graph[origin].append((f"move to {destination}", destination, distance))  # Include distance
+            graph[origin].append((f"move to {destination}", destination, distance))
             
             if destination not in graph:
                 graph[destination] = []
-            graph[destination].append((f"move to {origin}", origin, distance))  # Include distance
+            graph[destination].append((f"move to {origin}", origin, distance))
         
         return graph
-
 
     @abstractmethod
     def search(self):
