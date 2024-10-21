@@ -1,5 +1,5 @@
 from typing import Dict, List, Tuple
-from utilities.State import State
+from State import State
 
 class Problem:
     def __init__(self, initial_state: State, goal_state: State, graph: Dict = None):
