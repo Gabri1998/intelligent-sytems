@@ -1,6 +1,6 @@
 import time  # Import time for execution time tracking
 from Search import Search
-from Node import Node  # Import the Node class from the utilities folder
+from utilities.Node import Node  # Import the Node class from the utilities folder
 
 
 class DFS(Search):
@@ -47,7 +47,11 @@ class DFS(Search):
         """Write the solution path and additional information to a text file."""
         with open(file_path, 'w', encoding="utf-8") as f:
             if solution:
-                # Writing the solution path and costs
+                f.write(f"Generated nodes: {self.generated_nodes}\n")
+                f.write(f"Expanded nodes: {self.expanded_nodes}\n")
+                f.write(f"Execution time: {self.execution_time}\n")
+                f.write(f"Solution length: {len(solution) - 1}\n")
+                f.write(f"Solution cost: {self.solution_cost}\n")
                 f.write("Solution: [")
                 for i in range(len(solution) - 1):
                     current_node = solution[i]
@@ -59,22 +63,18 @@ class DFS(Search):
                 f.write("]\n")
 
                 # Writing additional metadata (generated nodes, expanded nodes, etc.)
-                f.write(f"Generated nodes: {self.generated_nodes}\n")
-                f.write(f"Expanded nodes: {self.expanded_nodes}\n")
-                f.write(f"Execution time: {self.execution_time}\n")
-                f.write(f"Solution length: {len(solution) - 1}\n")
-                f.write(f"Solution cost: {self.solution_cost}\n")
+               
             else:
                 f.write("No solution found.\n")
 
 
 if __name__ == "__main__":
-    json_file_path = r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\input\problems\small\plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
     dfs = DFS(json_file_path)
     solution = dfs.search()  # Call the search method
 
     if solution:
         dfs.write_solution_to_file(solution,
-                                   r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\output\plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
+                                   '/home/gabri/Inteilligent Systems/src/output/small/dfs/plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
     else:
         print("No solution found.")

@@ -1,8 +1,8 @@
 import os
-import time  # Import time for execution time tracking
+import time  
 from collections import deque
 from Search import Search
-from Node import Node
+from utilities.Node import Node
 
 
 class BFS(Search):
@@ -43,32 +43,34 @@ class BFS(Search):
 
     def write_solution_to_file(self, solution, file_path):
         """Write the solution path and additional information to a text file."""
-        with open(file_path, 'w', encoding="utf-8") as f:
+        with open(file_path, 'w') as f:
             if solution:
-                # Writing the solution path and costs
-                for i in range(len(solution) - 1):
-                    current_node = solution[i]
-                    next_node = solution[i + 1]
-                    action, cost = self.problem.get_action_and_cost(current_node.state, next_node.state)
-                    f.write(f"{current_node.state.id} → {next_node.state.id}, {cost}\n")
-
-                # Writing additional metadata (generated nodes, expanded nodes, etc.)
                 f.write(f"Generated nodes: {self.generated_nodes}\n")
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
                 f.write(f"Execution time: {self.execution_time}\n")
                 f.write(f"Solution length: {len(solution) - 1}\n")
                 f.write(f"Solution cost: {self.solution_cost}\n")
+                f.write("Solution: [")
+                
+                for i in range(len(solution) - 1):
+                    current_node = solution[i]
+                    next_node = solution[i + 1]
+                    action, cost = self.problem.get_action_and_cost(current_node.state, next_node.state)
+                    f.write(f"{current_node.state.id} → {next_node.state.id}, {cost}")
+                    if i < len(solution) - 2:
+                        f.write(", ")
+                f.write("]\n")
             else:
                 f.write("No solution found.\n")
 
 
 if __name__ == "__main__":
-    json_file_path = r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\input\problems\small\plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
     bfs = BFS(json_file_path)
     solution = bfs.search()  # Call the search method
 
     if solution:
         bfs.write_solution_to_file(solution,
-                                   r'C:\Users\obada\Desktop\Courses This Semester\Intelligent Systems\intelligent-sytems\src\output\small\bfs\plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
+                                   '/home/gabri/Inteilligent Systems/src/output/small/bfs/plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
     else:
         print("No solution found.")

@@ -1,9 +1,9 @@
 import heapq
 from Search import Search
-from Node import Node  # Import the Node class from the utilities folder
-from Problem import Problem  # Import the Problem class if needed
-from State import State  # Import the State class if needed
-from Action import Action  # Import the Action class if needed
+from utilities.Node import Node  # Import the Node class from the utilities folder
+from utilities.Problem import Problem  # Import the Problem class if needed
+from utilities.State import State  # Import the State class if needed
+from utilities.Action import Action  # Import the Action class if needed
 
 
 
