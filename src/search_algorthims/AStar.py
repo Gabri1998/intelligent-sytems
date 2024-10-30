@@ -15,6 +15,10 @@ class AStar(Search):
 
     def search(self):
         """Performs the A* search algorithm."""
+        # Start tracking execution time
+        start_time = time.time()
+
+       
         frontier = []
         start_node = Node(self.problem.initial_state)
         heapq.heappush(frontier, (self.f(start_node), start_node))
@@ -26,8 +30,9 @@ class AStar(Search):
             self.expanded_nodes += 1  # Track expanded nodes
 
             if self.problem.is_goal(node.state):
+                end_time = time.time()
                 print("Goal found!")
-                return node.path()
+                return node.path(), end_time - start_time
 
             for action, successor, cost in self.problem.get_successors(node.state, include_cost=True):
                 new_cost = cost_so_far[node.state] + cost
@@ -37,20 +42,21 @@ class AStar(Search):
                     heapq.heappush(frontier, (priority, Node(successor, node, action, new_cost)))
                     self.generated_nodes += 1  # Track generated nodes
                     print(f"Adding to frontier: {successor}")
-
+        end_time = time.time()
         print("No solution found.")
-        return None
+        return None, end_time - start_time
 
     def f(self, node):
         """f(n) = g(n) + h(n): Path cost + heuristic."""
         return node.path_cost + self.heuristic(node.state)
 
-    def write_solution_to_file(self, solution, file_path):
+    def write_solution_to_file(self, solution, execution_time, file_path):
         """Write the solution path and additional information to a text file."""
         with open(file_path, 'w') as f:
             if solution:
                 f.write(f"Generated nodes: {self.generated_nodes}\n")
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
+                f.write(f"Execution time: {execution_time}\n")
                 f.write(f"Solution length: {len(solution) - 1}\n")
                 f.write("Solution Path:\n")
                 
@@ -69,9 +75,9 @@ if __name__ == "__main__":
 
     json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
     astar = AStar(json_file_path, lambda state: manhattan_heuristic(state, astar.problem.goal_state))
-    solution = astar.search()
+    solution, execution_time = astar.search()
 
     if solution:
-        astar.write_solution_to_file(solution, '/home/gabri/Inteilligent Systems/src/output/small/astar/plaza_isabel_ii_albacete_250_0.txt')
+        astar.write_solution_to_file(solution, execution_time, '/home/gabri/Inteilligent Systems/src/output/small/astar/plaza_isabel_ii_albacete_250_0.txt')
     else:
         print("No solution found.")
