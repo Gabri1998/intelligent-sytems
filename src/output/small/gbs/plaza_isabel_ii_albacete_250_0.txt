@@ -1,6 +1,6 @@
-Generated nodes: 26
-Expanded nodes: 21
-Execution time: 0.0004291534423828125
+Generated nodes: 9
+Expanded nodes: 6
+Execution time: 0.000159
 Solution length: 5
-Solution cost: 8.730833333333333
+Solution cost: 8.730833
 Solution: [1972430537 → 1972430544, 15.863, 1972430544 → 434369348, 99.449, 434369348 → 1529477806, 75.576, 1529477806 → 1529477842, 34.573, 1529477842 → 1255528488, 36.464]

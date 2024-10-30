@@ -1,6 +1,6 @@
 Generated nodes: 26
 Expanded nodes: 21
-Execution time: 0.0004267692565917969
+Execution time: 0.00038504600524902344
 Solution length: 5
 Solution Path:
 1: State ID 1972430537 (lat: 38.9997331, lon: -1.8625351)
