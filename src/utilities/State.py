@@ -1,5 +1,5 @@
 class State:
-    def __init__(self, id, latitude, longitude):
+    def __init__(self, id, latitude=None, longitude=None):
         self.id = id
         self.latitude = latitude
         self.longitude = longitude
