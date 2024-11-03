@@ -1,11 +1,16 @@
 import heapq
 import math
+from datetime import timedelta
 import time
+from decimal import Decimal, getcontext
 from Search import Search
 from utilities.Node import Node
 from utilities.State import State
 
-class GreedyBestEuclidean(Search):
+# Set precision for Decimal calculations
+getcontext().prec = 20
+
+class GreedyBestGeodesic(Search):
     def __init__(self, json_file_path: str):
         super().__init__(json_file_path)
         self.generated_nodes = 0
@@ -19,7 +24,7 @@ class GreedyBestEuclidean(Search):
         start_node = Node(self.problem.initial_state)
         
         # Push start node into frontier with heuristic as priority
-        heapq.heappush(frontier, (self.euclidean_heuristic(start_node.state), start_node))
+        heapq.heappush(frontier, (self.geodesic_heuristic(start_node.state), start_node))
         self.checked.add(start_node.state)
 
         while frontier:
@@ -40,7 +45,7 @@ class GreedyBestEuclidean(Search):
             for action, successor, cost in self.problem.get_successors(current_node.state, include_cost=True):
                 if successor not in self.checked:
                     self.checked.add(successor)
-                    priority = self.euclidean_heuristic(successor)  # Use heuristic only
+                    priority = self.geodesic_heuristic(successor)  # Use geodesic heuristic only
                     heapq.heappush(frontier, (priority, Node(successor, current_node, action, current_node.path_cost + cost)))
                     self.generated_nodes += 1
                     print(f"Adding to frontier: {successor}")
@@ -48,17 +53,29 @@ class GreedyBestEuclidean(Search):
         print("No solution found.")
         return None, 0
 
-    def euclidean_heuristic(self, state: State) -> float:
-        """Calculate the Euclidean distance heuristic scaled to approximate travel time."""
+    def geodesic_heuristic(self, state: State) -> float:
+        """Calculate the geodesic distance heuristic using the Haversine formula, scaled to approximate travel time."""
         goal = self.problem.goal_state
-        avg_speed = 30  # Assuming speed in meters per second for consistency with A*
+        avg_speed = Decimal(120.0)  # Tuned average speed for accurate expansion behavior
         
         if state.latitude is None or state.longitude is None or goal.latitude is None or goal.longitude is None:
             return float('inf')  # High cost if coordinates are missing
 
-        # Calculate Euclidean distance to travel time
-        distance = math.sqrt((state.latitude - goal.latitude) ** 2 + (state.longitude - goal.longitude) ** 2)
-        return distance / avg_speed  # Estimated time to reach the goal
+        # Haversine formula
+        R = Decimal(6371000)  # Earth radius in meters
+        lat1 = Decimal(math.radians(state.latitude))
+        lon1 = Decimal(math.radians(state.longitude))
+        lat2 = Decimal(math.radians(goal.latitude))
+        lon2 = Decimal(math.radians(goal.longitude))
+
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+
+        a = Decimal(math.sin(dlat / 2) ** 2) + Decimal(math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2)
+        c = Decimal(2) * Decimal(math.atan2(math.sqrt(a), math.sqrt(1 - a)))
+        distance = R * c  # Distance in meters
+
+        return (distance / avg_speed).quantize(Decimal('0.000000'))
 
     def write_solution_to_file(self, solution, execution_time, file_path):
         """Write solution path and search metrics to a file."""
@@ -66,12 +83,13 @@ class GreedyBestEuclidean(Search):
             if solution:
                 f.write(f"Generated nodes: {self.generated_nodes}\n")
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
-                f.write(f"Execution time: {execution_time:.6f}\n")
+                f.write(f"Execution time: {str(timedelta(seconds=execution_time))}\n")
                 f.write(f"Solution length: {len(solution) - 1}\n")
                 
                 # Calculate and write solution cost
                 solution_cost = solution[-1].path_cost
-                f.write(f"Solution cost: {solution_cost:.6f}\n")
+                formatted_cost = str(timedelta(seconds=solution_cost))
+                f.write(f"Solution cost: {formatted_cost}\n")
                 
                 f.write("Solution: [")
                 
@@ -79,17 +97,18 @@ class GreedyBestEuclidean(Search):
                     current_node = solution[i]
                     next_node = solution[i + 1]
                     action, cost = self.problem.get_action_and_cost(current_node.state, next_node.state)
-                    f.write(f"{current_node.state.id} → {next_node.state.id}, {cost}")
+                    cost = Decimal(cost).quantize(Decimal('0.000000'))  # Format cost to six decimal places
+                    f.write(f"{current_node.state.id} → {next_node.state.id} ({cost})")
                     if i < len(solution) - 2:
                         f.write(", ")
                 f.write("]\n")
             else:
                 f.write("No solution found.\n")
 
-# Example usage
+
 if __name__ == "__main__":
     json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
-    greedy_search = GreedyBestEuclidean(json_file_path)
+    greedy_search = GreedyBestGeodesic(json_file_path)
     solution, execution_time = greedy_search.search()
     
     if solution:

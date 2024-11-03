@@ -1,7 +1,11 @@
-import time 
+import time
 from Search import Search
-from utilities.Node import Node  # Import the Node class from the utilities folder
+from utilities.Node import Node
+from datetime import timedelta
+from decimal import Decimal, getcontext
 
+# Set Decimal precision
+getcontext().prec = 20
 
 class DFS(Search):
     def __init__(self, json_file_path: str):
@@ -12,68 +16,81 @@ class DFS(Search):
         self.solution_cost = 0
 
     def search(self):
-        """Perform the DFS search."""
-        start_time = time.time()  # Start tracking time
-        frontier = [Node(self.problem.initial_state)]  # Use a stack for DFS
-        self.checked = set()  # Track explored nodes
+        """Perform DFS without backtracking pruning and with controlled node ordering."""
+        start_time = time.time()
+        frontier = [Node(self.problem.initial_state)]
+        self.checked = set()
 
         while frontier:
-            node = frontier.pop()  # DFS uses LIFO, pop from the end of the stack
+            node = frontier.pop()
+            if node.state in self.checked:
+                continue
+
             print(f"Exploring: {node.state}")
-            self.expanded_nodes += 1  # Increment expanded nodes count
+            self.checked.add(node.state)
+            self.expanded_nodes += 1
 
+            # Goal test
             if self.problem.is_goal(node.state):
-                end_time = time.time()  # Stop tracking time
-                self.execution_time = end_time - start_time  # Calculate execution time
-                self.solution_cost = node.path_cost  # Total solution cost
+                self.execution_time = time.time() - start_time
+                self.solution_cost = node.path_cost
                 print("Goal found!")
-                return node.path()  # Return the path to the goal
+                return node.path()
 
-            self.checked.add(node.state)  # Mark the node as explored
+            # Expand nodes and add them to frontier
+            successors = node.expand(self.problem)
+            successors.sort(key=lambda x: x.state.id)  # Sort successors for consistent traversal order
 
-            # Expand the node and add its children to the frontier
-            for child in node.expand(self.problem):
-                if child.state not in self.checked and child not in frontier:
+            for child in successors:
+                if child.state not in self.checked:
                     frontier.append(child)
-                    self.generated_nodes += 1  # Increment generated nodes count
+                    self.generated_nodes += 1
                     print(f"Adding to frontier: {child.state}")
 
-        end_time = time.time()  # Stop tracking time
-        self.execution_time = end_time - start_time  # Calculate execution time
+        # Final time record if no solution is found
+        self.execution_time = time.time() - start_time
         print("No solution found after exploring all states.")
         return None
 
-   
     def write_solution_to_file(self, solution, file_path):
-        """Write solution path and info to file."""
+        """Write the solution path and additional information to a text file."""
         with open(file_path, 'w') as f:
             if solution:
                 f.write(f"Generated nodes: {self.generated_nodes}\n")
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
+                
+                # Format execution time to match the expected output format
+                formatted_execution_time = str(timedelta(seconds=self.execution_time))
+                f.write(f"Execution time: {formatted_execution_time}\n")
+                
                 f.write(f"Solution length: {len(solution) - 1}\n")
+                
+                # Format solution cost with exact precision
+                solution_cost = solution[-1].path_cost
+                formatted_cost = str(timedelta(seconds=solution_cost))
+                f.write(f"Solution cost: {formatted_cost}\n")
+                
                 f.write("Solution: [")
                 
                 for i in range(len(solution) - 1):
                     current_node = solution[i]
                     next_node = solution[i + 1]
-                    action = f"move to {next_node.state.id}"
-                    cost = self.problem.step_cost(current_node.state, action, next_node.state)
-                    f.write(f"{current_node.state.id} → {next_node.state.id}, cost: {cost}")
+                    action, cost = self.problem.get_action_and_cost(current_node.state, next_node.state)
+                    cost = Decimal(cost).quantize(Decimal('0.000000'))  # Format cost to six decimal places
+                    f.write(f"{current_node.state.id} → {next_node.state.id} ({cost})")
                     if i < len(solution) - 2:
                         f.write(", ")
                 f.write("]\n")
             else:
                 f.write("No solution found.\n")
 
-
-
 if __name__ == "__main__":
     json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
     dfs = DFS(json_file_path)
-    solution = dfs.search()  # Call the search method
+    solution = dfs.search()
 
     if solution:
-        dfs.write_solution_to_file(solution,
-                                   '/home/gabri/Inteilligent Systems/src/output/small/dfs/plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
+        output_path = '/home/gabri/Inteilligent Systems/src/output/small/dfs/plaza_isabel_ii_albacete_250_0.txt'
+        dfs.write_solution_to_file(solution, output_path)
     else:
         print("No solution found.")

@@ -5,7 +5,7 @@ from Search import Search
 from utilities.Node import Node
 from utilities.State import State
 from utilities.RouteData import RouteData
-
+from datetime import timedelta
 class AStar(Search):
     def __init__(self, json_file_path: str, heuristic):
         super().__init__(json_file_path)
@@ -58,6 +58,9 @@ class AStar(Search):
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
                 f.write(f"Execution time: {execution_time}\n")
                 f.write(f"Solution length: {len(solution) - 1}\n")
+                solution_cost = solution[-1].path_cost
+                formatted_cost = str(timedelta(seconds=solution_cost))
+                f.write(f"Solution cost: {formatted_cost}\n")
                 f.write("Solution Path:\n")
                 
                 for i, node in enumerate(solution):
