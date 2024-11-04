@@ -1,5 +1,6 @@
 import heapq
 import time  
+from datetime import timedelta
 from Search import Search
 from utilities.Node import Node
 
@@ -59,7 +60,9 @@ class UCS(Search):
                 f.write(f"Expanded nodes: {self.expanded_nodes}\n")
                 f.write(f"Execution time: {self.execution_time}\n")
                 f.write(f"Solution length: {len(solution) - 1}\n")
-                f.write(f"Solution cost: {self.solution_cost}\n")
+                solution_cost = solution[-1].path_cost
+                formatted_cost = str(timedelta(seconds=solution_cost))
+                f.write(f"Solution cost: {formatted_cost}\n")
                 f.write("Solution: [")
                 
                 for i in range(len(solution) - 1):
