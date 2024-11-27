@@ -78,12 +78,12 @@ class UCS(Search):
 
 
 if __name__ == "__main__":
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     ucs = UCS(json_file_path)
     solution = ucs.search()  # Call the search method
 
     if solution:
         ucs.write_solution_to_file(solution,
-                                   '/home/gabri/Inteilligent Systems/src/output/small/ucs/plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
+                                   '/home/gabri/Inteilligent Systems/src/output/huge/ucs/plaza_isabel_ii_albacete_250_0.txt')  # Write solution to file
     else:
         print("No solution found.")

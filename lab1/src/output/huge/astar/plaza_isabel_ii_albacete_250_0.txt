@@ -1,0 +1,19 @@
+Generated nodes: 158
+Expanded nodes: 133
+Execution time: 0.0028824806213378906
+Solution length: 12
+Solution cost: 0:01:22.085280
+Solution Path:
+1: State ID 772970924 (lat: 38.9961074, lon: -1.8619424)
+2: State ID 2822641953 (lat: 38.9962818, lon: -1.8618948)
+3: State ID 11787944276 (lat: 38.996339, lon: -1.8620766)
+4: State ID 672069214 (lat: 38.996366, lon: -1.8621646)
+5: State ID 435465423 (lat: 38.9966637, lon: -1.8630597)
+6: State ID 1837752577 (lat: 38.997102, lon: -1.8645177)
+7: State ID 1255528464 (lat: 38.9982593, lon: -1.8644838)
+8: State ID 672689819 (lat: 38.9987623, lon: -1.8645185)
+9: State ID 1529570474 (lat: 38.9988067, lon: -1.8644317)
+10: State ID 1529570534 (lat: 38.9990298, lon: -1.8646205)
+11: State ID 1529477879 (lat: 38.9990827, lon: -1.8651134)
+12: State ID 1307889214 (lat: 38.9991364, lon: -1.8656133)
+13: State ID 1837752453 (lat: 38.9992598, lon: -1.866764)

@@ -119,7 +119,7 @@ class AStarGeodesic(Search):
 # Main section for testing and running the algorithm
 if __name__ == "__main__":
     # Load a problem from JSON and run A* Geodesic search
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     astar = AStarGeodesic(json_file_path)
     
     # Run the search and obtain the solution and execution time
@@ -127,6 +127,6 @@ if __name__ == "__main__":
 
     # Write solution to output file or print "No solution found"
     if solution:
-        astar.write_solution_to_file(solution, execution_time, '/home/gabri/Inteilligent Systems/src/output/small/astar_geodesic/plaza_isabel_ii_albacete_250_0.txt')
+        astar.write_solution_to_file(solution, execution_time, '/home/gabri/Inteilligent Systems/src/output/huge/astar_geodesic/plaza_isabel_ii_albacete_250_0.txt')
     else:
         print("No solution found.")

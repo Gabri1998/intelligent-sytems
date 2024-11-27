@@ -1,9 +1,10 @@
+
 import time
 from collections import deque
-from Search import Search
 from utilities.Node import Node
 from datetime import timedelta
 from decimal import Decimal, getcontext
+from search_algorthims.Search import Search
 
 # Set the precision for Decimal calculations (useful for cost formatting)
 getcontext().prec = 20
@@ -105,7 +106,7 @@ class BFS(Search):
 # Main block to execute BFS on a given problem instance
 if __name__ == "__main__":
     # Define the file path for input JSON
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     
     # Create BFS instance
     bfs = BFS(json_file_path)
@@ -115,7 +116,7 @@ if __name__ == "__main__":
 
     # Write solution details to output file or print "No solution found"
     if solution:
-        output_path = '/home/gabri/Inteilligent Systems/src/output/small/bfs/plaza_isabel_ii_albacete_250_0.txt'
+        output_path = '/home/gabri/Inteilligent Systems/src/output/huge/bfs/plaza_isabel_ii_albacete_250_0.txt'
         bfs.write_solution_to_file(solution, output_path)
     else:
         print("No solution found.")

@@ -29,7 +29,7 @@ Inteilligent_Systems/
 
 
 
-* export PYTHONPATH="${PYTHONPATH}:/home/user/Inteilligent_Systems/src"
+* export PYTHONPATH="${PYTHONPATH}:/home/gabri/Inteilligent_Systems/src"
 
   
 * python3 BFS.py

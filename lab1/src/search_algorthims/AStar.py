@@ -76,11 +76,11 @@ if __name__ == "__main__":
         
         return abs(state.latitude - goal_state.latitude) + abs(state.longitude - goal_state.longitude)
 
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     astar = AStar(json_file_path, lambda state: manhattan_heuristic(state, astar.problem.goal_state))
     solution, execution_time = astar.search()
 
     if solution:
-        astar.write_solution_to_file(solution, execution_time, '/home/gabri/Inteilligent Systems/src/output/small/astar/plaza_isabel_ii_albacete_250_0.txt')
+        astar.write_solution_to_file(solution, execution_time, '/home/gabri/Inteilligent Systems/src/output/huge/astar/plaza_isabel_ii_albacete_250_0.txt')
     else:
         print("No solution found.")

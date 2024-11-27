@@ -122,7 +122,7 @@ class GreedyBestGeodesic(Search):
 # Main function to execute the Greedy Best-First Search
 if __name__ == "__main__":
     # Define path to input JSON file
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     
     # Create a GreedyBestGeodesic instance and start the search
     greedy_search = GreedyBestGeodesic(json_file_path)
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     
     # Write the solution to an output file if found
     if solution:
-        output_path = '/home/gabri/Inteilligent Systems/src/output/small/gbs/plaza_isabel_ii_albacete_250_0.txt'
+        output_path = '/home/gabri/Inteilligent Systems/src/output/huge/gbs/plaza_isabel_ii_albacete_250_0.txt'
         greedy_search.write_solution_to_file(solution, execution_time, output_path)
     else:
         print("No solution found.")

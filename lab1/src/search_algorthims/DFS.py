@@ -108,7 +108,7 @@ class DFS(Search):
 # Main function to run DFS on a specific problem instance
 if __name__ == "__main__":
     # Define path to the input JSON file
-    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/small/plaza_isabel_ii_albacete_250_0.json'
+    json_file_path = '/home/gabri/Inteilligent Systems/src/input/problems/huge/calle_cardenal_tabera_y_araoz_albacete_2000_1.json'
     
     # Create a DFS instance and run the search
     dfs = DFS(json_file_path)
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Write the solution to a file if found, otherwise print "No solution found"
     if solution:
-        output_path = '/home/gabri/Inteilligent Systems/src/output/small/dfs/plaza_isabel_ii_albacete_250_0.txt'
+        output_path = '/home/gabri/Inteilligent Systems/src/output/huge/dfs/plaza_isabel_ii_albacete_250_0.txt'
         dfs.write_solution_to_file(solution, output_path)
     else:
         print("No solution found.")
