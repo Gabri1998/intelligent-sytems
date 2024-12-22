@@ -1,0 +1,4 @@
+population_size = 500  # Number of individuals in the population
+num_generations = 100  # Number of generations
+mutation_rate = 0.2   # Mutation probability, pero individual -- flipping
+k = 3 #tournamente size

@@ -1,0 +1,282 @@
+-******* IMPORTANT ******
+If a candidate intersection is disconnected from all the stations, we will consider 18000 seconds, like 5 hours. This is important as it will modify the fitness values.
+
+The configuration used here is:
+
+representation --> binary chromosome with exactly number_stations 1s
+
+crossover using one point, and fixing children to be valid
+
+probability of mutation is 0.2 and it is done at the level of an individual, instead of gen, because it switches two positions 0-1 or 1-0
+
+population size is fixed, always 200
+
+number of generations = 50
+
+selection by tournament using k=3
+
+combination by truncating (mix new and old popuilation and taking the best, keeping the population size constant) 
+
+If you want to optimize your code, three important hints:
+
+- instead of using the geodesic distance in an external package, code yourself the haversine distance given lat,lon of two points. For example, see this link: https://nathan.fun/posts/2016-09-07/haversine-with-python/
+
+- use a dictionary/cache for those individuals already evaluated, so that the fitness can be retrieved and not computed
+
+- use the same mechanism when searching the time distance between two intersections A and B, just in case you have already made those calculations in a previous moment. 
+
+NOTE: Remember to store the values after the computations 
+
+
+
+***********************
+       
+
+sample-problems-lab2/small/
+sample-problems-lab2/small/calle_condesa_de_trifaldi_albacete_500_0_candidates_18_ns_3.json
+total seconds (execution time) is : 0:00:00.064927
+Best individual : [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+fitness = 50.6118325324199
+calle_condesa_de_trifaldi_albacete_500_0_candidates_18_ns_3.json
+num_candidates is 18, to select 3 stations
+
+Best Solution: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+The 3 stations will be located in intersections:
+[ 2 11 17]
+[1526728367,1529475130,9517864886]
+
+Best Solution Fitness: 50.6118325324199
+A_star calls: 
+	total --> 19305 
+	real --> 306
+Evaluated individuals: 
+	total --> 10200 
+	real --> 429
+
+__________________________________________________
+
+sample-problems-lab2/small/calle_agustina_aroca_albacete_250_0_candidates_75_ns_7.json
+total seconds (execution time) is : 0:00:00.853508
+Best individual : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+fitness = 13.594536289982626
+calle_agustina_aroca_albacete_250_0_candidates_75_ns_7.json
+num_candidates is 75, to select 7 stations
+
+Best Solution: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+The 7 stations will be located in intersections:
+[17 26 40 46 51 56 65]
+[1557262702,1528181111,1528181129,1530897844,1835353347,1560897811,1991970566]
+
+Best Solution Fitness: 13.594536289982626
+A_star calls: 
+	total --> 1476076 
+	real --> 5550
+Evaluated individuals: 
+	total --> 10200 
+	real --> 3101
+
+__________________________________________________
+sample-problems-lab2/small/calle_herreros_albacete_250_1_candidates_25_ns_5.json
+total seconds (execution time) is : 0:00:00.112625
+Best individual : [1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+fitness = 9.470435447039216
+calle_herreros_albacete_250_1_candidates_25_ns_5.json
+num_candidates is 25, to select 5 stations
+
+Best Solution: [1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+The 5 stations will be located in intersections:
+[ 0  4  7  9 11]
+[946558782,772970912,4404600177,4575714125,265487272]
+
+Best Solution Fitness: 9.470435447039216
+A_star calls: 
+	total --> 114200 
+	real --> 600
+Evaluated individuals: 
+	total --> 10200 
+	real --> 1142
+
+__________________________________________________
+
+sample-problems-lab2/medium/
+sample-problems-lab2/medium/calle_ínsula_barataria_albacete_500_0_candidates_140_ns_34.json
+total seconds (execution time) is : 0:00:15.444181
+Best individual : [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+fitness = 5.643092130091848
+calle_ínsula_barataria_albacete_500_0_candidates_140_ns_34.json
+num_candidates is 140, to select 34 stations
+
+Best Solution: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+The 34 stations will be located in intersections:
+[  0   1  13  16  23  24  27  30  32  36  38  39  43  44  48  55  61  71
+  74  77  78  82  85  90  96  98  99 105 110 118 122 128 130 138]
+[539833069,1530897686,1526728370,1529202109,335606021,1529201976,1526752502,1736073022,1529475300,1529623346,1266037410,1635557962,1529776769,499274675,1528832261,344736237,1528823380,1577308277,1526728377,1529475130,539831002,333719887,1529623313,1562200802,1529475169,1635557952,539831085,1526728361,1530722043,1958896976,1530704637,1529202053,1529475193,1835353352]
+
+Best Solution Fitness: 5.643092130091848
+A_star calls: 
+	total --> 29585236 
+	real --> 19460
+Evaluated individuals: 
+	total --> 10200 
+	real --> 8209
+
+__________________________________________________
+
+sample-problems-lab2/medium/calle_franciscanos_albacete_500_3_candidates_107_ns_8.json
+total seconds (execution time) is : 0:00:01.439443
+Best individual : [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+fitness = 22.105091161510444
+calle_franciscanos_albacete_500_3_candidates_107_ns_8.json
+num_candidates is 107, to select 8 stations
+
+Best Solution: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+The 8 stations will be located in intersections:
+[  6  20  40  41  51  86  96 102]
+[1530201979,1256026682,1628459226,1540598147,1255547644,621979263,1255547648,335607940]
+
+Best Solution Fitness: 22.105091161510444
+A_star calls: 
+	total --> 2863872 
+	real --> 11342
+Evaluated individuals: 
+	total --> 10200 
+	real --> 3616
+
+__________________________________________________
+
+sample-problems-lab2/medium/calle_agustina_aroca_albacete_500_1_candidates_89_ns_22.json
+total seconds (execution time) is : 0:00:03.560331
+Best individual : [0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+fitness = 7.006300519790455
+calle_agustina_aroca_albacete_500_1_candidates_89_ns_22.json
+num_candidates is 89, to select 22 stations
+
+Best Solution: [0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+The 22 stations will be located in intersections:
+[ 1  3  5  6  9 12 17 19 20 21 23 35 36 37 45 46 51 57 59 71 78 86]
+[1528181112,618009048,1528181137,1528160276,2736548945,1528181134,1991970566,335720312,1572439161,1574608068,1565088794,1574608075,434369338,1530897624,1255528468,1554813465,344859492,1526105942,1572435255,1554813425,1526105992,1574598083]
+
+Best Solution Fitness: 7.006300519790455
+A_star calls: 
+	total --> 7384740 
+	real --> 7832
+Evaluated individuals: 
+	total --> 10200 
+	real --> 5010
+
+__________________________________________________
+
+sample-problems-lab2/medium/calle_palmas_de_gran_canaria_albacete_500_2_candidates_167_ns_23.json
+total seconds (execution time) is : 0:00:10.627251
+Best individual : [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+fitness = 10.985223188176072
+calle_palmas_de_gran_canaria_albacete_500_2_candidates_167_ns_23.json
+num_candidates is 167, to select 23 stations
+
+Best Solution: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+The 23 stations will be located in intersections:
+[  2  16  19  22  26  29  32  33  43  48  59  64  66  76  94 114 120 122
+ 137 143 149 152 160]
+[1984658040,1526108356,1531673357,335607938,6296438171,335606022,1736073025,1529202109,1628459236,434014599,335606025,1528823380,551594180,1983117780,1628459226,1255547648,1529197043,1255547641,1529201982,1255499536,1530897746,1577713909,1528823288]
+
+Best Solution Fitness: 10.985223188176072
+A_star calls: 
+	total --> 18520704 
+	real --> 27722
+Evaluated individuals: 
+	total --> 10200 
+	real --> 5592
+
+__________________________________________________
+
+sample-problems-lab2/medium/calle_antonio_gotor_albacete_500_4_candidates_118_ns_13.json
+
+total seconds (execution time) is : 0:00:04.030445
+Best individual : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+fitness = 14.281847533316114
+calle_antonio_gotor_albacete_500_4_candidates_118_ns_13.json
+num_candidates is 118, to select 13 stations
+
+Best Solution: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+The 13 stations will be located in intersections:
+[ 10  17  27  47  49  50  55  74  75  76  84  97 105]
+[1529475376,1526728365,1530704632,1835353368,539833067,1529475130,442882995,1526728304,1266037421,442896947,1531659768,1529776701,621979238]
+
+Best Solution Fitness: 14.281847533316114
+A_star calls: 
+	total --> 7123935 
+	real --> 13806
+Evaluated individuals: 
+	total --> 10200 
+	real --> 5219
+
+__________________________________________________
+
+sample-problems-lab2/medium/camino_de_alto_los_chorlitos_albacete_2000_4_candidates_121_ns_28.json
+total seconds (execution time) is : 0:00:09.372497
+Best individual : [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+fitness = 13.03460704352964
+camino_de_alto_los_chorlitos_albacete_2000_4_candidates_121_ns_28.json
+num_candidates is 121, to select 28 stations
+
+Best Solution: [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+The 28 stations will be located in intersections:
+[  0   1   4  11  17  19  26  27  28  33  37  38  50  51  57  63  64  67
+  71  90  91  92 101 103 105 106 108 118]
+[6009837280,8493864104,1545913495,5582955314,9630348450,8673752663,1537103898,1569209141,1733470299,2021463849,2021463844,1733470041,1537103992,2006872018,9503925087,1736047790,1534537179,3073982884,1537104233,1551656333,2006872098,1733496512,1537104246,1535219742,1736047793,1537058001,1954979580,1603945205]
+
+Best Solution Fitness: 13.03460704352964
+A_star calls: 
+	total --> 18826920 
+	real --> 14520
+Evaluated individuals: 
+	total --> 10200 
+	real --> 7230
+
+__________________________________________________
+
+sample-problems-lab2/medium/calle_f_albacete_2000_0_candidates_25_ns_4.json
+total seconds (execution time) is : 0:00:00.090259
+Best individual : [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1]
+fitness = 24.064828724130514
+calle_f_albacete_2000_0_candidates_25_ns_4.json
+num_candidates is 25, to select 4 stations
+
+Best Solution: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1]
+The 4 stations will be located in intersections:
+[ 2 21 23 24]
+[7350762710,1961392153,2163186255,4224196989]
+
+Best Solution Fitness: 24.064828724130514
+A_star calls: 
+	total --> 83328 
+	real --> 600
+Evaluated individuals: 
+	total --> 10200 
+	real --> 992
+
+__________________________________________________
+
+sample-problems-lab2/medium/camino_de_alto_los_chorlitos_albacete_2000_2_candidates_38_ns_6.json
+total seconds (execution time) is : 0:00:00.273085
+Best individual : [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]
+fitness = 52.09486134453743
+camino_de_alto_los_chorlitos_albacete_2000_2_candidates_38_ns_6.json
+num_candidates is 38, to select 6 stations
+
+Best Solution: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]
+The 6 stations will be located in intersections:
+[ 8 10 12 14 31 32]
+[1733470460,1537103992,1958868552,2006872082,344863325,9503910580]
+
+Best Solution Fitness: 52.09486134453743
+A_star calls: 
+	total --> 380544 
+	real --> 1406
+Evaluated individuals: 
+	total --> 10200 
+	real --> 1982
+
+__________________________________________________
+
+
