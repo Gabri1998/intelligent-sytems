@@ -1,0 +1,126 @@
+place_id=955316231; citizens = 875
+to station with id 430968596 = 74.2482
+to station with id 2783160954 = 37.90391999999999
+to station with id 435465434 = 14.74692
+to station with id 2822641953 = 51.43176
+min_distance --> 14.74692
+accounting for =12903.555
+______________________________
+place_id=1736146191; citizens = 1827
+to station with id 430968596 = 100000000000000000
+to station with id 2783160954 = 100000000000000000
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 10.132079999999998
+min_distance --> 10.132079999999998
+accounting for =18511.310159999997
+______________________________
+place_id=11303171544; citizens = 733
+to station with id 430968596 = 66.69539999999999
+to station with id 2783160954 = 41.114399999999996
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 77.11692
+min_distance --> 41.114399999999996
+accounting for =30136.855199999998
+______________________________
+place_id=430968594; citizens = 661
+to station with id 430968596 = 7.985999999999999
+to station with id 2783160954 = 100000000000000000
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 100000000000000000
+min_distance --> 7.985999999999999
+accounting for =5278.745999999999
+______________________________
+place_id=430968596; citizens = 397
+to station with id 430968596 = 0
+to station with id 2783160954 = 100000000000000000
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 100000000000000000
+min_distance --> 0
+accounting for =0
+______________________________
+place_id=434369348; citizens = 836
+to station with id 430968596 = 68.27604
+to station with id 2783160954 = 42.69504
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 68.50247999999999
+min_distance --> 42.69504
+accounting for =35693.053439999996
+______________________________
+place_id=430968590; citizens = 534
+to station with id 430968596 = 27.58332
+to station with id 2783160954 = 12.390839999999997
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 76.01364
+min_distance --> 12.390839999999997
+accounting for =6616.708559999998
+______________________________
+place_id=2000100687; citizens = 1376
+to station with id 430968596 = 54.6648
+to station with id 2783160954 = 18.32052
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 103.09512
+min_distance --> 18.32052
+accounting for =25209.035519999998
+______________________________
+place_id=2783160954; citizens = 1486
+to station with id 430968596 = 36.34428
+to station with id 2783160954 = 0
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 84.7746
+min_distance --> 0
+accounting for =0
+______________________________
+place_id=1534218794; citizens = 145
+to station with id 430968596 = 82.49856
+to station with id 2783160954 = 56.91756
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 41.967119999999994
+min_distance --> 41.967119999999994
+accounting for =6085.232399999999
+______________________________
+place_id=431043029; citizens = 1409
+to station with id 430968596 = 32.058479999999996
+to station with id 2783160954 = 6.477479999999999
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 80.4888
+min_distance --> 6.477479999999999
+accounting for =9126.76932
+______________________________
+place_id=1255528482; citizens = 1726
+to station with id 430968596 = 45.3504
+to station with id 2783160954 = 19.7694
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 61.26371999999999
+min_distance --> 19.7694
+accounting for =34121.9844
+______________________________
+place_id=435465434; citizens = 1436
+to station with id 430968596 = 94.1832
+to station with id 2783160954 = 68.6022
+to station with id 435465434 = 0
+to station with id 2822641953 = 36.684839999999994
+min_distance --> 0
+accounting for =0
+______________________________
+place_id=1257471997; citizens = 223
+to station with id 430968596 = 70.67016
+to station with id 2783160954 = 45.08916
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 23.607119999999995
+min_distance --> 23.607119999999995
+accounting for =5264.387759999999
+______________________________
+place_id=2822641953; citizens = 1293
+to station with id 430968596 = 100000000000000000
+to station with id 2783160954 = 100000000000000000
+to station with id 435465434 = 100000000000000000
+to station with id 2822641953 = 0
+min_distance --> 0
+accounting for =0
+______________________________
+weighted_distances=188947.63776
+total_citizens == 14957
+
+12.632722989904394
+
+Note: 100000000000000000 this is used in our case to indicate there is no path

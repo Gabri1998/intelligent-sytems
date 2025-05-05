@@ -1,109 +1,154 @@
-from typing import Dict, List, Tuple
+from typing import List, Tuple, Dict
 from utilities.State import State
 from utilities.RouteData import RouteData
+import random
+from math import radians, sin, cos, sqrt, atan2
 
 class Problem:
-    def __init__(self, initial_state: State, goal_state: State, route_data: RouteData):
+    def __init__(self, route_data: RouteData):
         """
-        Initialize the search problem with initial and goal states and route data.
-        
+        Initialize the Problem instance for Lab 2.
+
         Args:
-            initial_state (State): The starting state for the search.
-            goal_state (State): The goal state for the search.
-            route_data (RouteData): Data about routes, intersections, and segments.
+            route_data (RouteData): Parsed route data object.
         """
-        self.initial_state = initial_state
-        self.goal_state = goal_state
         self.route_data = route_data
-        self.sorted_segments = self._sort_segments()
+        self.intersections = route_data.get_intersections()
+        self.candidates = route_data.get_candidates()  # (id, population)
+        self.candidate_intersections = [candidate[0] for candidate in self.candidates]
+        self.number_stations = route_data.get_number_stations()
 
-    def _sort_segments(self) -> Dict[int, List[Dict]]:
-        """
-        Organize segments by origin state, sorted by destination for predictable traversal.
-        
-        Returns:
-            Dict[int, List[Dict]]: A dictionary mapping state IDs to sorted segment lists.
-        """
-        sorted_segments = {}
-        for segment in self.route_data.segments:
-            origin = segment["origin"]
-            if origin not in sorted_segments:
-                sorted_segments[origin] = []
-            sorted_segments[origin].append(segment)
+        # Caches for travel time and fitness evaluation
+        self.travel_time_cache = {}
+        self.evaluation_cache = {}
 
-        for origin in sorted_segments:
-            sorted_segments[origin].sort(key=lambda x: x["destination"])
-        return sorted_segments
-
-    def get_action_and_cost(self, state1: State, state2: State) -> Tuple[str, float]:
+    def compute_travel_time(self, state1: State, state2: State) -> float:
         """
-        Get the action and travel cost between two states if a direct path exists.
-        
+        Compute the travel time between two states using a heuristic.
+
         Args:
             state1 (State): The starting state.
             state2 (State): The destination state.
-            
-        Returns:
-            Tuple[str, float]: The action description and travel cost, or high cost if no path exists.
-        """
-        segments_from_state = self.sorted_segments.get(state1.id, [])
-        for segment in segments_from_state:
-            if segment["destination"] == state2.id:
-                action = f"move to {state2.id}"
-                travel_time = (segment["distance"] / segment["speed"]) * 3.6
-                return action, travel_time
-        return "", float('inf')  
 
-    def get_successors(self, state: State, include_cost=False) -> List[Tuple[str, State, float]]:
+        Returns:
+            float: The travel time in seconds.
         """
-        Generate successor states for a given state.
-        
+        if (state1.id, state2.id) in self.travel_time_cache:
+            return self.travel_time_cache[(state1.id, state2.id)]
+
+        # Use haversine distance as the heuristic
+        distance = self.compute_haversine(state1.latitude, state1.longitude, state2.latitude, state2.longitude)
+        travel_time = (distance / 50) * 3.6  # Assuming average speed of 50 km/h
+
+        # Cache the computed travel time
+        self.travel_time_cache[(state1.id, state2.id)] = travel_time
+        return travel_time
+
+    def evaluate_solution(self, chromosome: List[int]) -> float:
+        """
+        Evaluate the fitness of a given solution (chromosome).
+
         Args:
-            state (State): The state to expand.
-            include_cost (bool): Whether to include travel cost in the output.
-            
+            chromosome (List[int]): The chromosome representing the solution.
+
         Returns:
-            List[Tuple[str, State, float]]: List of tuples containing action, successor, and cost.
+            float: The fitness score (lower is better).
         """
-        successors = []
-        segments_from_state = self.sorted_segments.get(state.id, [])
+        config_tuple = tuple(chromosome)
+        if config_tuple in self.evaluation_cache:
+            return self.evaluation_cache[config_tuple]
 
-        for segment in segments_from_state:
-            successor = self.route_data.get_state(segment['destination'])
-            travel_time = (segment["distance"] / segment["speed"]) * 3.6
-            action = f"move to {successor.id}"
-            if include_cost:
-                successors.append((action, successor, travel_time))
-            else:
-                successors.append((action, successor))
-        return successors
+        if sum(chromosome) != self.number_stations:
+            raise ValueError(
+                f"Invalid configuration: Expected {self.number_stations} active stations but got {sum(chromosome)}."
+            )
 
-    def step_cost(self, current_state: State, action: str, next_state: State) -> float:
+        total_population = sum(pop for _, pop in self.candidates)
+        weighted_travel_time = 0.0
+
+        for candidate_id, population in self.candidates:
+            candidate_state = self.route_data.get_state(candidate_id)
+            min_travel_time = float('inf')
+
+            for station_id, active in enumerate(chromosome):
+                if active:
+                    station_state = self.route_data.get_state(self.candidate_intersections[station_id])
+                    travel_time = self.compute_travel_time(candidate_state, station_state)
+                    min_travel_time = min(min_travel_time, travel_time)
+
+            if min_travel_time == float('inf'):
+                min_travel_time = 18000  # Fallback for unreachable candidates
+
+            weighted_travel_time += population * min_travel_time
+
+        fitness = weighted_travel_time / total_population
+        self.evaluation_cache[config_tuple] = fitness
+        return fitness
+
+    def generate_random_chromosome(self) -> List[int]:
         """
-        Get the cost between the current state and the next state if there's a direct segment.
-        
+        Generate a random chromosome representing a possible solution.
+
+        Returns:
+            List[int]: A chromosome with random active stations.
+        """
+        chromosome = [0] * len(self.candidates)
+        active_indices = random.sample(range(len(chromosome)), self.number_stations)
+        for idx in active_indices:
+            chromosome[idx] = 1
+        return chromosome
+
+    def compute_haversine(self, lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+        """
+        Compute the haversine distance between two geographic points.
+
         Args:
-            current_state (State): The starting state.
-            action (str): The action taken.
-            next_state (State): The destination state.
-            
-        Returns:
-            float: The travel cost between states, or high cost if no direct segment exists.
-        """
-        segments_from_state = self.sorted_segments.get(current_state.id, [])
-        for segment in segments_from_state:
-            if segment["destination"] == next_state.id:
-                return (segment["distance"] / segment["speed"]) * 3.6
-        return float('inf')  
+            lat1 (float): Latitude of point 1.
+            lon1 (float): Longitude of point 1.
+            lat2 (float): Latitude of point 2.
+            lon2 (float): Longitude of point 2.
 
-    def is_goal(self, state: State) -> bool:
-        """
-        Check if a state is the goal state.
-        
-        Args:
-            state (State): The state to check.
-            
         Returns:
-            bool: True if state is the goal state, False otherwise.
+            float: Distance in meters.
         """
-        return state.id == self.goal_state.id
+        R = 6371  # Radius of Earth in kilometers
+        lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return R * c * 1000  # Convert to meters
+
+    def fix_chromosome(self, chromosome: List[int]) -> List[int]:
+        """
+        Fix a chromosome to ensure it has the correct number of active stations.
+
+        Args:
+            chromosome (List[int]): The chromosome to fix.
+
+        Returns:
+            List[int]: The fixed chromosome.
+        """
+        active_positions = [i for i, gene in enumerate(chromosome) if gene == 1]
+        if len(active_positions) > self.number_stations:
+            excess = random.sample(active_positions, len(active_positions) - self.number_stations)
+            for idx in excess:
+                chromosome[idx] = 0
+        elif len(active_positions) < self.number_stations:
+            inactive_positions = [i for i, gene in enumerate(chromosome) if gene == 0]
+            additions = random.sample(inactive_positions, self.number_stations - len(active_positions))
+            for idx in additions:
+                chromosome[idx] = 1
+        return chromosome
+
+    def validate_chromosome(self, chromosome: List[int]) -> bool:
+        """
+        Validate if a chromosome has the correct number of active stations.
+
+        Args:
+            chromosome (List[int]): The chromosome to validate.
+
+        Returns:
+            bool: True if valid, False otherwise.
+        """
+        return sum(chromosome) == self.number_stations
