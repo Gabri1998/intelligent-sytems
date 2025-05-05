@@ -1,6 +1,0 @@
-# Ignore Python files
-*get-pip.py
-
-# Ignore virtual environment folders
-venv/
-__pycache__/
